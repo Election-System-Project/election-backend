@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import corsheaders
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-4vz(h&q=k7299z*kuu=u7@+psuc(q-_6=6*v&v!ozwcuk750in
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://df0a-193-140-250-85.ngrok-free.app"]
+ALLOWED_HOSTS = [ 'localhost', '4cfa-31-142-106-235.ngrok-free.app']
 
 
 # Application definition
@@ -48,6 +49,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'election_system_316.corsmiddleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -132,11 +135,40 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authcontroller.User'
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3001',  # Add the required origins here
-]
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:3001', 
+#     'http://localhost:3000' # Add the required origins here
+# ]
 
-CORS_ALLOWED_METHODS = [
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_METHODS = [
     'GET',
     'POST',
+    'OPTIONS',
+    'PATCH',
+    'PUT',
+    'DELETE',
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3001',
+    'http://localhost:3000',
+    'https://example.com',
+]
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
+
+
+CORS_ALLOW_CREDENTIALS = True

@@ -21,7 +21,7 @@ class AnnouncementDetailView(generics.RetrieveAPIView):
 
 announcement_detail_view = AnnouncementDetailView.as_view()
 
-@api_view(["GET"])
+@api_view(["GET", "POST"])
 def announcement_list_view(request, *args, **kwargs):
     result_data = {}
     general_data = {}
@@ -39,8 +39,8 @@ def announcement_list_view(request, *args, **kwargs):
         "title": "Result Announcements",
         "announcementList": result_data
     }
-    data = {
-        0: general_data,
-        1: result_data
-    }
+    data = {"array":[
+        general_data,
+        result_data
+    ]}
     return Response(data=data)
