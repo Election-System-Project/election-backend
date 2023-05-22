@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-4vz(h&q=k7299z*kuu=u7@+psuc(q-_6=6*v&v!ozwcuk750in
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://df0a-193-140-250-85.ngrok-free.app"]
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
+    'corsheaders',
     'authcontroller',
     'announcementController',
     'candidateController',
@@ -130,3 +131,12 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authcontroller.User'
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3001',  # Add the required origins here
+]
+
+CORS_ALLOWED_METHODS = [
+    'GET',
+    'POST',
+]
