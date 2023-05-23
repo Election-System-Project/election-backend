@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-4vz(h&q=k7299z*kuu=u7@+psuc(q-_6=6*v&v!ozwcuk750in
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ 'localhost', 'e84f-77-67-158-76.ngrok-free.app']
+ALLOWED_HOSTS = [ 'localhost', '62dc-193-140-250-85.ngrok-free.app']
 
 
 # Application definition
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'election_system_316.corsmiddleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -141,7 +142,7 @@ AUTH_USER_MODEL = 'authcontroller.User'
 #     'http://localhost:3000' # Add the required origins here
 # ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+
 
 CORS_ALLOW_METHODS = [
     'GET',
