@@ -7,10 +7,13 @@ class CandidateModelSerializer(serializers.ModelSerializer):
         model = Candidate
         fields = [
             "student_id",
+            "name",
+            "surname",
             "faculty",
             "department",
             "email",
-            "is_approved"
+            "is_approved",
+            "grade"
         ]
     
     def validate(self, attrs):

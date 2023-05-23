@@ -13,11 +13,6 @@ class CandidateCreateView(generics.CreateAPIView):
 
 candidate_create_view = CandidateCreateView.as_view()
 
-class CandidateListView(generics.ListAPIView):
-    queryset = Candidate.objects.all()
-    serializer_class = CandidateModelSerializer
-
-candidate_list_view = CandidateListView.as_view()
 
 class CandidateDetailsView(generics.RetrieveAPIView):
     queryset = Candidate.objects.all()
@@ -26,3 +21,9 @@ class CandidateDetailsView(generics.RetrieveAPIView):
 
 candidate_details_view = CandidateDetailsView.as_view()
 
+@api_view(["POST","GET"])
+def candidate_list_view(request, *args, **kwargs):
+    qs = Candidate.objects.all()
+    result_data = CandidateModelSerializer(qs, many = True).data
+    
+    return Response(data=result_data)
