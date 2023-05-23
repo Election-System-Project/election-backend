@@ -10,3 +10,4 @@ class Candidate(models.Model):
     email = models.EmailField()
     grade = models.IntegerField(default = 1)
     is_approved = models.BooleanField(default=False)
+    vote_count = models.IntegerField(default = 0)
