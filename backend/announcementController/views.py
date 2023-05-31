@@ -2,9 +2,6 @@ from rest_framework import generics
 from .models import Announcement
 from .serializers import AnnouncementSerializer
 from .serializers import AnnouncementDetailSerializer
-
-
-
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 # Create your views here.
@@ -20,6 +17,13 @@ class AnnouncementDetailView(generics.RetrieveAPIView):
     lookup_field = 'pk'
 
 announcement_detail_view = AnnouncementDetailView.as_view()
+
+class AnnouncementDeleteView(generics.DestroyAPIView):
+    queryset = Announcement.objects.all()
+    serializer_class = AnnouncementSerializer
+    lookup_field = 'pk'
+
+announcement_delete_view = AnnouncementDeleteView.as_view()
 
 @api_view(["GET", "POST"])
 def announcement_list_view(request, *args, **kwargs):

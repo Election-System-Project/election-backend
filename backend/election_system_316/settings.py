@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
-import corsheaders
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-4vz(h&q=k7299z*kuu=u7@+psuc(q-_6=6*v&v!ozwcuk750in
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ 'localhost', '62dc-193-140-250-85.ngrok-free.app']
+ALLOWED_HOSTS = [ '127.0.0.1', 'a369-193-140-250-85.ngrok-free.app']
 
 
 # Application definition
