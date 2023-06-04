@@ -13,7 +13,9 @@ class CandidateModelSerializer(serializers.ModelSerializer):
             "department",
             "email",
             "is_approved",
-            "grade"
+            "grade",
+            "is_winner",
+            "vote_count"
         ]
     
     def validate(self, attrs):

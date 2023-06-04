@@ -11,3 +11,5 @@ class Candidate(models.Model):
     grade = models.IntegerField(default = 1)
     is_approved = models.BooleanField(default=False)
     vote_count = models.IntegerField(default = 0)
+    is_winner = models.BooleanField(default=False)
+    is_rejected = models.BooleanField(default=False)
