@@ -5,7 +5,7 @@ This repository is intended for backend only, the language used is python with d
 ## Requirements:
 use the following command:
 ```bash
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Running the server:
