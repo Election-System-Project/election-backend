@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'candidateController',
     'dateController',
     'voteController',
-    'login'
+    'login',
+    'applications_pdf',
 ]
 
 MIDDLEWARE = [
