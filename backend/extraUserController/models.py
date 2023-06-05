@@ -8,5 +8,6 @@ class User(models.Model):
     hasVoted = models.BooleanField(default= False)
     hasApplied = models.BooleanField(default= False)
     electionStatus = models.BooleanField(default = False)
+    grade = models.FloatField(default = 2.00)
     
     

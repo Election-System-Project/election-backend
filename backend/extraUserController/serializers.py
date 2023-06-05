@@ -9,7 +9,8 @@ class UserSerializer(serializers.ModelSerializer):
                   'studentNumber', 
                   'hasVoted',
                   'hasApplied',
-                  'electionStatus'
+                  'electionStatus',
+                  'grade'
                   ]
     def validate(self, attrs):
         student_number = attrs['studentNumber']
