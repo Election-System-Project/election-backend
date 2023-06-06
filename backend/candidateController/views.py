@@ -27,3 +27,10 @@ def candidate_list_view(request, *args, **kwargs):
     result_data = CandidateModelSerializer(qs, many = True).data
     
     return Response(data=result_data)
+
+@api_view(["POST","GET"])
+def approved_candidate_list_view(request, *args, **kwargs):
+    qs = Candidate.objects.all().filter(is_approved = True)
+    result_data = CandidateModelSerializer(qs, many = True).data
+    
+    return Response(data=result_data)
