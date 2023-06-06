@@ -13,3 +13,4 @@ class Candidate(models.Model):
     vote_count = models.IntegerField(default = 0)
     is_winner = models.BooleanField(default=False)
     has_most_counts = models.BooleanField(default=False)
+    is_checked = models.BooleanField(default=False)

@@ -16,17 +16,28 @@ def user_list_view(request, *args, **kwargs):
 
 @api_view(["POST"])
 def user_create_view(request, *args, **kwargs):
+    filtered_request = request.data["user"]
     data = {
-        "name": request.data["name"],
-        "surname": request.data["surname"],
-        "studentNumber": request.data["studentNumber"]
+        "name": filtered_request["name"],
+        "surname": filtered_request["surname"],
+        "studentNumber": filtered_request["studentNumber"],
+        "grade": filtered_request["grade"],
+        "email": filtered_request["email"],
+        "department": filtered_request["department"]
     }
     serializer = UserSerializer(data=data)
     if serializer.is_valid(raise_exception=True):
-        serializer.save()
-        return Response({
-            "statusMessage": "User added successfully"
-        })
+        if(not User.objects.filter(studentNumber=filtered_request["studentNumber"]).exists()):
+            serializer.save()
+        
+        user = User.objects.get(studentNumber=filtered_request["studentNumber"])
+        user_serializer = UserSerializer(user)
+        data = {
+            "userData": user_serializer.data,
+            "roles": filtered_request["roles"]
+        }
+        return Response(data = data)
+  
     
 @api_view(["POST"])
 def user_vote_view(request, *args, **kwargs):
@@ -40,10 +51,3 @@ def user_vote_view(request, *args, **kwargs):
             "messageStatus": "Successfully changed vote"
         }
         )
-    
-
-
-    
-    
-
-

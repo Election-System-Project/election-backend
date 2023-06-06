@@ -10,19 +10,17 @@ class UserSerializer(serializers.ModelSerializer):
                   'hasVoted',
                   'hasApplied',
                   'electionStatus',
-                  'grade'
+                  'grade',
+                  'email'
                   ]
     def validate(self, attrs):
-        student_number = attrs['studentNumber']
-        instance = self.instance  # Get the current instance being updated (if any)
-
-        existing_users = User.objects.filter(studentNumber=student_number).exclude(pk=instance.pk if instance else None)
-        if existing_users.exists():
-            raise serializers.ValidationError("User with this studentNumber already exists.")
         
         return attrs
-
     
+
+
+
+
 class VoterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

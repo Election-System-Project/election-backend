@@ -52,3 +52,39 @@ def result_reject_view(request, *args, **kwargs):
         except Candidate.DoesNotExist:
             return Response({'status': 'failure', 'error': f'Candidate with {student_id} does not exist.'}, status=status.HTTP_400_BAD_REQUEST)
     return Response({'status': 'success'})
+
+@api_view(["POST"])
+def application_approve_view(request, *args, **kwargs):
+    student_id = ""
+    print(request.data)
+    for student in request.data:
+        try:
+            student_id = student["student_id"]
+            candidate = Candidate.objects.get(student_id=student_id)
+            candidate.is_checked = True
+            candidate.is_approved = True
+            candidate.save()
+        except Candidate.DoesNotExist:
+            return Response({'status': 'failure', 'error': f'Candidate with {student_id} does not exist.'}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'status': 'success'})
+
+@api_view(["POST"])
+def application_reject_view(request, *args, **kwargs):
+    student_id = ""
+    print(request.data)
+    for student in request.data:
+        try:
+            student_id = student["student_id"]
+            candidate = Candidate.objects.get(student_id=student_id)
+            candidate.is_checked = True
+            candidate.save()
+        except Candidate.DoesNotExist:
+            return Response({'status': 'failure', 'error': f'Candidate with {student_id} does not exist.'}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'status': 'success'})
+    
+@api_view(["POST"])
+def list_application_view(request, *args, **kwargs):
+    qs = Candidate.objects.all().filter(is_checked = False)
+    data = ApprovementSerializer(qs,many=True).data
+
+    return Response(data=data)

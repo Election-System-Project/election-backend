@@ -3,6 +3,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from candidateController.models import Candidate
 from .serializers import VoteSerializer
+from extraUserController.serializers import VoterSerializer
+from extraUserController.models import User
 from .models import Vote
 
 
@@ -18,21 +20,37 @@ class VoteDetailAPIView(generics.RetrieveAPIView):
 
 @api_view(["POST"])
 def add_vote(request, *args, **kwargs):
-    serializer = VoteSerializer(data=request.data)
+    filtered_user_data = {
+        "studentNumber": request.data["user_id"]
+    }
+    filtered_candidate_data = {
+        "student_id": request.data["student_id"]
+    }
+    print(filtered_user_data)
+    print(filtered_candidate_data)
+    voter_serializer = VoterSerializer(data=filtered_user_data)
+    vote_serializer = VoteSerializer(data=filtered_candidate_data)
     if request.data["student_id"] == "-1": 
+        user_id = voter_serializer.validated_data["studentNumber"]
+        voter = User.objects.get(studentNumber = user_id)
+        voter.hasVoted = True
+        voter.save()
         return Response({'status': 'success'}, status=status.HTTP_200_OK)
-    if serializer.is_valid():
-        student_id = serializer.validated_data['student_id']
+    if vote_serializer.is_valid() and voter_serializer.is_valid(raise_exception=True):
+        user_id = voter_serializer.validated_data["studentNumber"]
+        student_id = vote_serializer.validated_data['student_id']
         try:
             vote = Candidate.objects.get(student_id=student_id)
             vote.vote_count += 1
             vote.save()
-        except Candidate.DoesNotExist:
-            
+            voter = User.objects.get(studentNumber = user_id)
+            voter.hasVoted = True
+            voter.save()
+        except Candidate.DoesNotExist:            
             return Response({'status': 'failure', 'error': 'Candidate does not exist.'}, status=status.HTTP_400_BAD_REQUEST)
         return Response({'status': 'success'}, status=status.HTTP_200_OK)
     else:
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(vote_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
 @api_view(["GET"])

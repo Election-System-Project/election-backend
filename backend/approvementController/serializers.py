@@ -12,7 +12,8 @@ class ApprovementSerializer(serializers.ModelSerializer):
             "is_approved",
             "grade",
             "vote_count",
-            "department"
+            "department",
+            "is_checked"
         ]
     def get_name(self,obj):
         return obj.name + " " + obj.surname
