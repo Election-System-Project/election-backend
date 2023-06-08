@@ -11,7 +11,8 @@ class UserSerializer(serializers.ModelSerializer):
                   'hasApplied',
                   'electionStatus',
                   'grade',
-                  'email'
+                  'email',
+                  'department'
                   ]
     def validate(self, attrs):
         
@@ -34,9 +35,6 @@ class VoterSerializer(serializers.ModelSerializer):
             user = User.objects.get(studentNumber=student_number)
         except User.DoesNotExist:
             raise serializers.ValidationError("This user does not exist")
-
-        if user.hasVoted:
-            raise serializers.ValidationError("This user has already voted")
 
         return attrs
       

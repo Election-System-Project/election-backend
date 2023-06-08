@@ -1,9 +1,25 @@
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from rest_framework import request, generics,status 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 from candidateController.models import Candidate
 from .serializers import ApprovementSerializer, ResultSerializer
+from email.mime.text import MIMEText
+
+from extraUserController.models import User
+from announcementController.models import Announcement
+from messageController.models import Message
+
+
+def send_email(*arg, **kwargs):
+    sender_email = 'your_email@example.com'
+    receiver_email = 'recipient_email@example.com'
+    subject = 'Hello from Python!'
+    message = 'This is the body of the email.'
+    return
 
 # Create your views here.
 @api_view(["POST","GET"])
@@ -34,6 +50,11 @@ def result_approve_view(request, *args, **kwargs):
             candidate.is_winner = True
             candidate.is_approved = True
             candidate.save()
+            content = f"The winner in the department {candidate.department} is {candidate.name} {candidate.surname}"
+            title = f"Winner of department {candidate.department}"
+            type ="result"
+            announcement = Announcement(title = title, content = content, announcement_type = type)
+            announcement.save()
         except Candidate.DoesNotExist:
             return Response({'status': 'failure', 'error': f'Candidate with {student_id} does not exist.'}, status=status.HTTP_400_BAD_REQUEST)
     return Response({'status': 'success'})
@@ -64,6 +85,10 @@ def application_approve_view(request, *args, **kwargs):
             candidate.is_checked = True
             candidate.is_approved = True
             candidate.save()
+            user = User.objects.get(studentNumber = student_id)
+            content = f"{user.name} {user.surname} application got approved"
+            message = Message(user = user, content = content)
+            message.save()
         except Candidate.DoesNotExist:
             return Response({'status': 'failure', 'error': f'Candidate with {student_id} does not exist.'}, status=status.HTTP_400_BAD_REQUEST)
     return Response({'status': 'success'})
@@ -76,8 +101,13 @@ def application_reject_view(request, *args, **kwargs):
         try:
             student_id = student["student_id"]
             candidate = Candidate.objects.get(student_id=student_id)
-            candidate.is_checked = True
-            candidate.save()
+            candidate.delete()
+            user = User.objects.get(studentNumber = student_id)
+            user.hasApplied = False
+            user.save()
+            content = f"{user.name} {user.surname} application got rejected"
+            message = Message(user = user, content = content)
+            message.save()
         except Candidate.DoesNotExist:
             return Response({'status': 'failure', 'error': f'Candidate with {student_id} does not exist.'}, status=status.HTTP_400_BAD_REQUEST)
     return Response({'status': 'success'})

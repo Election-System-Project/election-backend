@@ -3,3 +3,5 @@ djangorestframework
 pyyaml
 requests
 django_cors_headers
+setuptools
+zeep

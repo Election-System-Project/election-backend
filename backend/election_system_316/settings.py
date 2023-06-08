@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+MEDIA_ROOT = os.path.join(BASE_DIR, '')
 
 
 # Quick-start development settings - unsuitable for production
@@ -26,7 +28,7 @@ SECRET_KEY = 'django-insecure-4vz(h&q=k7299z*kuu=u7@+psuc(q-_6=6*v&v!ozwcuk750in
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ '127.0.0.1', '6f40-193-140-250-254.ngrok-free.app', 'localhost']
+ALLOWED_HOSTS = [ '127.0.0.1', '2593-193-140-250-254.ngrok-free.app', 'localhost']
 
 
 # Application definition
@@ -46,16 +48,27 @@ INSTALLED_APPS = [
     'candidateController',
     'dateController',
     'voteController',
-    'login',
     'approvementController',
-    'extraUserController'
+    'extraUserController',
+    'documentController',
+    'messageController'
 ]
+
+# MIDDLEWARE = [
+#     'django.middleware.security.SecurityMiddleware',
+#     'corsheaders.middleware.CorsMiddleware',
+#     'election_system_316.corsmiddleware.CorsMiddleware',
+#     'django.contrib.sessions.middleware.SessionMiddleware',
+#     'django.middleware.common.CommonMiddleware',
+#     'django.middleware.csrf.CsrfViewMiddleware',
+#     'django.contrib.auth.middleware.AuthenticationMiddleware',
+#     'django.contrib.messages.middleware.MessageMiddleware',
+#     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+# ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'election_system_316.corsmiddleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -63,6 +76,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'election_system_316.urls'
 
@@ -120,7 +134,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Istanbul'
 
 USE_I18N = True
 
@@ -159,6 +173,14 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3001',
     'http://localhost:3000',
     'https://example.com',
+    'https://election-6h92.onrender.com'
+]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3001',
+    'http://localhost:3000',
+    'https://example.com',
+    'https://election-6h92.onrender.com'
 ]
 
 CORS_ALLOW_HEADERS = [
@@ -171,8 +193,10 @@ CORS_ALLOW_HEADERS = [
     'user-agent',
     'x-csrftoken',
     'x-requested-with',
+    'application',
 ]
 
 
+CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ALLOW_CREDENTIALS = True

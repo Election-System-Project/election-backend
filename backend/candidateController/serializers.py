@@ -9,13 +9,13 @@ class CandidateModelSerializer(serializers.ModelSerializer):
             "student_id",
             "name",
             "surname",
-            "faculty",
             "department",
             "email",
             "is_approved",
             "grade",
             "is_winner",
-            "vote_count"
+            "vote_count",
+            "department"
         ]
     
     def validate(self, attrs):
