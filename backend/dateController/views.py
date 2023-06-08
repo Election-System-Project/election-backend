@@ -35,3 +35,12 @@ class ElectionDateListView(generics.ListAPIView):
 
 election_list_view = ElectionDateListView.as_view()
 
+@api_view(["POST"])
+def add_dates_view(request,*args,**kwargs):
+    print(request.data)
+    serializer = ElectionDataSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save()
+    return Response(data= {
+        "Status": "Geldi"
+    })

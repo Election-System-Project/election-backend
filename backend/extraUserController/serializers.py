@@ -11,7 +11,8 @@ class UserSerializer(serializers.ModelSerializer):
                   'hasApplied',
                   'electionStatus',
                   'grade',
-                  'email'
+                  'email',
+                  'department'
                   ]
     def validate(self, attrs):
         

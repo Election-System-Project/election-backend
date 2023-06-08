@@ -22,8 +22,8 @@ urlpatterns = [
     path('announcementController/', include("announcementController.urls")),
     path('dateController/', include("dateController.urls")),
     path('candidateController/', include("candidateController.urls")),
-    path('loginController/', include("login.urls")),
     path('voteController/', include("voteController.urls")),
     path('approvementController/', include("approvementController.urls")),
-    path('userController/', include("extraUserController.urls"))
+    path('userController/', include("extraUserController.urls")),
+    path('documentController/', include("documentController.urls"))
 ]

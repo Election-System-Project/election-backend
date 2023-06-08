@@ -17,13 +17,14 @@ def user_list_view(request, *args, **kwargs):
 @api_view(["POST"])
 def user_create_view(request, *args, **kwargs):
     filtered_request = request.data["user"]
+    print(filtered_request["department"]["name"])
     data = {
         "name": filtered_request["name"],
         "surname": filtered_request["surname"],
         "studentNumber": filtered_request["studentNumber"],
         "grade": filtered_request["grade"],
         "email": filtered_request["email"],
-        "department": filtered_request["department"]
+        "department": filtered_request["department"]["name"]
     }
     serializer = UserSerializer(data=data)
     if serializer.is_valid(raise_exception=True):
