@@ -28,6 +28,9 @@ class ElectionDataSerializer(serializers.ModelSerializer):
     def validate(self, data):
         if data["start_date"] > data["end_date"]:
             raise serializers.ValidationError("start date must be less than or equal to end_date")
+        all_dates = ElectionDate.objects.all().filter(election_type = "Department")
+        if all_dates.exists():
+            raise serializers.ValidationError("There is a 'Department' date already")
         if data["election_type"] == "Department" or data["election_type"] == "Faculty":
             return data
         raise serializers.ValidationError("election_type must either be 'Faculty' or 'Department'")

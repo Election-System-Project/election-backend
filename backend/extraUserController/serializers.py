@@ -36,8 +36,5 @@ class VoterSerializer(serializers.ModelSerializer):
         except User.DoesNotExist:
             raise serializers.ValidationError("This user does not exist")
 
-        if user.hasVoted:
-            raise serializers.ValidationError("This user has already voted")
-
         return attrs
       

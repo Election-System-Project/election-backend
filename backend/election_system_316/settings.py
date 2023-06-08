@@ -50,14 +50,25 @@ INSTALLED_APPS = [
     'voteController',
     'approvementController',
     'extraUserController',
-    'documentController'
+    'documentController',
+    'messageController'
 ]
+
+# MIDDLEWARE = [
+#     'django.middleware.security.SecurityMiddleware',
+#     'corsheaders.middleware.CorsMiddleware',
+#     'election_system_316.corsmiddleware.CorsMiddleware',
+#     'django.contrib.sessions.middleware.SessionMiddleware',
+#     'django.middleware.common.CommonMiddleware',
+#     'django.middleware.csrf.CsrfViewMiddleware',
+#     'django.contrib.auth.middleware.AuthenticationMiddleware',
+#     'django.contrib.messages.middleware.MessageMiddleware',
+#     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+# ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'election_system_316.corsmiddleware.CorsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -65,6 +76,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'election_system_316.urls'
 
@@ -164,6 +176,13 @@ CORS_ALLOWED_ORIGINS = [
     'https://election-6h92.onrender.com'
 ]
 
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3001',
+    'http://localhost:3000',
+    'https://example.com',
+    'https://election-6h92.onrender.com'
+]
+
 CORS_ALLOW_HEADERS = [
     'accept',
     'accept-encoding',
@@ -174,9 +193,10 @@ CORS_ALLOW_HEADERS = [
     'user-agent',
     'x-csrftoken',
     'x-requested-with',
-    'application'
+    'application',
 ]
 
 
+CORS_ORIGIN_ALLOW_ALL = False
 
 CORS_ALLOW_CREDENTIALS = True

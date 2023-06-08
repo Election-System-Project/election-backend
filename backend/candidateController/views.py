@@ -16,6 +16,8 @@ from urllib.parse import unquote
 from election_system_316 import settings
 
 from django.http import FileResponse
+import base64
+
 # Create your views here.
 
 
@@ -44,7 +46,7 @@ def approved_candidate_list_view(request, *args, **kwargs):
 
 @api_view(["POST","PUT"])
 def create_candidate_view(request, *args, **kwargs):
-   
+    
     user = User.objects.get(studentNumber = request.data["studentid"])
     data = {
         "student_id": user.studentNumber,
@@ -74,6 +76,7 @@ def create_candidate_view(request, *args, **kwargs):
 
 @api_view(["POST"])
 def candidate_document_view(request, *args, **kwargs):
+    
     studentNumber = request.data["studentid"]
     user = User.objects.get(studentNumber = studentNumber)
     if(user.hasApplied):
@@ -81,14 +84,20 @@ def candidate_document_view(request, *args, **kwargs):
         qs = PDF.objects.all().filter(student = candidate)
         documents = PDFSerializer(qs,many = True).data
         document_array = []
+        path_array = []
         print(settings.MEDIA_ROOT)
         for document in documents:
             file_path = unquote(document['file'])
+            path_array.append(file_path)
             file_path = os.path.join(settings.MEDIA_ROOT, file_path[1::])
-            file = open(file_path, 'rb')
-            document_array.append(file)
-        response = FileResponse(document_array, as_attachment=True)
-        return response
+            with open(file_path, 'rb') as file:
+                file_data = file.read()
+                base64_data = base64.b64encode(file_data).decode('utf-8')
+                document_array.append(base64_data)
+        return Response(data={
+            "documents": document_array,
+            "paths": path_array
+        })
     return Response(data={
         "message": f"The user with student id {studentNumber} has not applied"
     })
