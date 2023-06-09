@@ -11,7 +11,7 @@ services:
     name: mysite
     runtime: python
     buildCommand: "./build.sh"
-    startCommand: "gunicorn mysite.wsgi:application"
+    startCommand: "gunicorn election_system_316.wsgi:application"
     envVars:
       - key: DATABASE_URL
         fromDatabase:
