@@ -31,4 +31,4 @@ def get_message(request, *args, **kwargs):
     if qs.exists():
         serializer = MessageSerializer(qs, many = True).data
         return Response(data=serializer)
-    return Response(data = {"message": []})
+    return Response(data = {"data": []})
